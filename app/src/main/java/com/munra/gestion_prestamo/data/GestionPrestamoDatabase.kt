@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.munra.gestion_prestamo.data.prestamista.Prestamista
+import com.munra.gestion_prestamo.data.prestamista.PrestamistaDao
 import com.munra.gestion_prestamo.data.user.User
 import com.munra.gestion_prestamo.data.user.UserDao
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Prestamista::class], version = 1, exportSchema = false)
 abstract class GestionPrestamoDatabase : RoomDatabase(){
 
-    abstract fun commentDao(): UserDao
+    abstract fun userDao(): UserDao
+    abstract fun prestamistaDao(): PrestamistaDao
 
     companion object {
 
@@ -19,7 +22,7 @@ abstract class GestionPrestamoDatabase : RoomDatabase(){
 
         fun getDatabase(context: Context): GestionPrestamoDatabase {
             return Instance ?: synchronized(this) {
-                Room.databaseBuilder(context, GestionPrestamoDatabase::class.java, "comment_database")
+                Room.databaseBuilder(context, GestionPrestamoDatabase::class.java, "gestion_prestamo_database")
                     .fallbackToDestructiveMigration()
                     .build()
                     .also { Instance = it }
