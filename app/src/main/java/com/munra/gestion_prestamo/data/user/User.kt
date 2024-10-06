@@ -10,7 +10,7 @@ data class User(
     val id: Int = 0,
     val fullName : String,
     val userName : String,
-    val passord_hash : String,
+    val password_hash : String,
     val email : String,
 
 )
