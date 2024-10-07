@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">gestion_prestamo</string>
+    <string name="back_button">Regresar</string>
+    <string name="no_users">No existen usuarios. Agrege un nuevo Usuario.</string>
+    <string name="required_fields">*campos requeridos</string>
+
+    <string name="btn_user">Menu Usuario</string>
+    <string name="btn_save_action">Guardar</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_user_list">Lista de Usuario</string>
+    <string name="title_user_entry">Ingreso de Usuario</string>
+
+    <string name="lbl_agregar">Agregar</string>
+
+    <string name="lbl_fullname">Nombre Completo</string>
+    <string name="lbl_username">Nombre de Usuario</string>
+    <string name="lbl_password">Contraseña</string>
+    <string name="lbl_email">Correo</string>
+
 </resources>

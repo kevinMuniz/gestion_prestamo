@@ -5,8 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 @Dao
 interface TransaccionDao {
@@ -17,13 +15,10 @@ interface TransaccionDao {
     @Query("SELECT * FROM TRANSACCION")
     fun getAllTransaccion(): Flow<List<Transaccion>>
 
-    @Query("SELECT t.* FROM TRANSACCION t " +
-            "INNER JOIN PRESTAMO p ON t.idPrestamo = p.id " +
-            "WHERE  p.id = :idPrestamo " +
-            "ORDER BY t.fechaHora ASC")
-    fun getAllTransaccionByPrestamo(idPrestamo: Int)
+    @Query("SELECT * FROM TRANSACCION WHERE  idPrestamo =:idPrestamo ORDER BY fecha, hora ASC")
+    fun getAllTransaccionByPrestamo(idPrestamo: Int): Flow<List<Transaccion>>
 
-    @Query("SELECT * FROM TRANSACCION " +
-            "WHERE fechaHora BETWEEN :fechaInicio AND :fechaFin")
-    fun getAllTransaccionByDay(fechaInicio: LocalDateTime, fechaFin: LocalDateTime)
+    @Query("SELECT * FROM TRANSACCION WHERE fecha =:fecha")
+    fun getAllTransaccionByDay(fecha: String): Flow<List<Transaccion>>
+
 }

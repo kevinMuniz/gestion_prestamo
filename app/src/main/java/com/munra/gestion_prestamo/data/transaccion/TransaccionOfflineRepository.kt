@@ -1,7 +1,6 @@
 package com.munra.gestion_prestamo.data.transaccion
 
 import kotlinx.coroutines.flow.Flow
-import java.time.LocalDateTime
 
 class TransaccionOfflineRepository(private val transaccionDao: TransaccionDao): TransaccionRepository {
 
@@ -11,9 +10,6 @@ class TransaccionOfflineRepository(private val transaccionDao: TransaccionDao): 
 
     override suspend fun getAllTransaccionByPrestamo(idPrestamo: Int) = transaccionDao.getAllTransaccionByPrestamo(idPrestamo)
 
-    override suspend fun getAllTransaccionByDay(
-        fechaInicio: LocalDateTime,
-        fechaFin: LocalDateTime
-    ) = transaccionDao.getAllTransaccionByDay(fechaInicio, fechaFin)
+    override suspend fun getAllTransaccionByDay(fecha: String) = transaccionDao.getAllTransaccionByDay(fecha)
 
 }

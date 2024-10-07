@@ -2,7 +2,6 @@ package com.munra.gestion_prestamo.data.transaccion
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.time.LocalDateTime
 
 @Entity(tableName = "TRANSACCION")
 data class Transaccion(
@@ -12,7 +11,8 @@ data class Transaccion(
     val idPrestamo: Int,
     val tipoTransaccion: TipoTransaccion,
     val valor: Double,
-    val fechaHora: LocalDateTime,
+    val fecha: String,
+    val Hora: String,
     val idAgente : Int
 
 )
