@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.munra.gestion_prestamo.data.prestamista.Client
-import com.munra.gestion_prestamo.data.prestamista.ClientDao
+import com.munra.gestion_prestamo.data.client.Client
+import com.munra.gestion_prestamo.data.client.ClientDao
 import com.munra.gestion_prestamo.data.prestamo.Prestamo
 import com.munra.gestion_prestamo.data.prestamo.PrestamoDao
 import com.munra.gestion_prestamo.data.transaccion.Transaccion

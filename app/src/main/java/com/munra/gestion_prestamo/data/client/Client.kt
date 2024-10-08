@@ -1,4 +1,4 @@
-package com.munra.gestion_prestamo.data.prestamista
+package com.munra.gestion_prestamo.data.client
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

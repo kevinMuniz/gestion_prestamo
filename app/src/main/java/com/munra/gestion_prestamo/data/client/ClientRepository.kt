@@ -1,4 +1,4 @@
-package com.munra.gestion_prestamo.data.prestamista
+package com.munra.gestion_prestamo.data.client
 
 import kotlinx.coroutines.flow.Flow
 

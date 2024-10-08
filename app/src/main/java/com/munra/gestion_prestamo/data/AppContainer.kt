@@ -1,8 +1,8 @@
 package com.munra.gestion_prestamo.data
 
 import android.content.Context
-import com.munra.gestion_prestamo.data.prestamista.ClientOfflineRepository
-import com.munra.gestion_prestamo.data.prestamista.ClientRepository
+import com.munra.gestion_prestamo.data.client.ClientOfflineRepository
+import com.munra.gestion_prestamo.data.client.ClientRepository
 import com.munra.gestion_prestamo.data.prestamo.PrestamoOfflineRepository
 import com.munra.gestion_prestamo.data.prestamo.PrestamoRepository
 import com.munra.gestion_prestamo.data.transaccion.TransaccionOfflineRepository
