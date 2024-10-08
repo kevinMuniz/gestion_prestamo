@@ -1,8 +1,8 @@
 package com.munra.gestion_prestamo.data
 
 import android.content.Context
-import com.munra.gestion_prestamo.data.prestamista.PrestamistaOfflineRepository
-import com.munra.gestion_prestamo.data.prestamista.PrestamistaRepository
+import com.munra.gestion_prestamo.data.prestamista.ClientOfflineRepository
+import com.munra.gestion_prestamo.data.prestamista.ClientRepository
 import com.munra.gestion_prestamo.data.prestamo.PrestamoOfflineRepository
 import com.munra.gestion_prestamo.data.prestamo.PrestamoRepository
 import com.munra.gestion_prestamo.data.transaccion.TransaccionOfflineRepository
@@ -12,7 +12,7 @@ import com.munra.gestion_prestamo.data.user.UserRepository
 
 interface AppContainer {
     val userRepository: UserRepository
-    val prestamistaRepository: PrestamistaRepository
+    val clientRepository: ClientRepository
     val prestamoRepository: PrestamoRepository
     val transaccionRepository: TransaccionRepository
 }
@@ -23,8 +23,8 @@ class AppDataContainer(private val context: Context) : AppContainer {
         UserOfflineRepository(GestionPrestamoDatabase.getDatabase(context).userDao())
     }
 
-    override val prestamistaRepository: PrestamistaRepository by lazy {
-        PrestamistaOfflineRepository(GestionPrestamoDatabase.getDatabase(context).prestamistaDao())
+    override val clientRepository: ClientRepository by lazy {
+        ClientOfflineRepository(GestionPrestamoDatabase.getDatabase(context).clientDao())
     }
 
     override val prestamoRepository: PrestamoRepository by lazy {

@@ -31,9 +31,12 @@ fun GestionPrestamoNavHost(
     ){
         composable(route = HomeDestination.route) {
             HomeScreen(
-                navigateToUser = { navController.navigate(UserListDestination.route) }
+                navigateToUser = { navController.navigate(UserListDestination.route) },
+                navigateToClient = {}
             )
         }
+
+        //region User Navigation
         composable(route = UserListDestination.route) {
             UserListScreen(
                 navigateToBack = {navController.navigate(HomeDestination.route)},
@@ -70,6 +73,18 @@ fun GestionPrestamoNavHost(
                 onNavigateUp = { navController.navigateUp() }
             )
         }
-    }
+        //endregion
 
+        //region Client Navigation
+        composable(route = UserListDestination.route) {
+            UserListScreen(
+                navigateToBack = {navController.navigate(HomeDestination.route)},
+                navigateToUserUpdate = {
+                    navController.navigate("${UserDetailsDestination.route}/${it}")
+                },
+                navigateToUserEntry = { navController.navigate(UserEntryDestination.route) },
+            )
+        }
+        //endregion
+    }
 }

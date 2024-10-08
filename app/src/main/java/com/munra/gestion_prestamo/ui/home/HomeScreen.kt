@@ -14,7 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
@@ -34,10 +33,10 @@ object HomeDestination : NavigationDestination {
 @Composable
 fun HomeScreen(
     navigateToUser: () -> Unit,
+    navigateToClient: () -> Unit,
     modifier: Modifier = Modifier
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -51,6 +50,7 @@ fun HomeScreen(
     ) { innerPadding ->
         HomeBody(
             navigateToUser = navigateToUser,
+            navigateToClient = navigateToClient,
             modifier = Modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
@@ -66,6 +66,7 @@ fun HomeScreen(
 @Composable
 fun HomeBody(
     navigateToUser: () -> Unit,
+    navigateToClient: () -> Unit,
     modifier: Modifier = Modifier
 ){
     Column(
@@ -77,6 +78,12 @@ fun HomeBody(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = stringResource(R.string.btn_user))
+        }
+        Button(
+            onClick = navigateToClient,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = stringResource(R.string.btn_client))
         }
     }
 }

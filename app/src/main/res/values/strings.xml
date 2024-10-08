@@ -9,6 +9,9 @@
     <string name="yes">Si</string>
 
     <string name="btn_user">Menu Usuario</string>
+    <string name="btn_client">Menu Cliente</string>
+    <string name="btn_prestamo">Menu Prestamo</string>
+    <string name="btn_transaction">Menu Transaccion</string>
     <string name="btn_save_action">Guardar</string>
     <string name="btn_delete">Eliminar</string>
 
