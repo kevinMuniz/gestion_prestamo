@@ -4,14 +4,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.munra.gestion_prestamo.data.AESEncyption
 import com.munra.gestion_prestamo.data.user.User
 import com.munra.gestion_prestamo.data.user.UserRepository
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 
 class UserEntryViewModel(private val userRepository: UserRepository): ViewModel () {
 
@@ -34,21 +29,7 @@ class UserEntryViewModel(private val userRepository: UserRepository): ViewModel 
             userRepository.insertUser(userUiDetails.userDetails.toEntity())
         }
     }
-
-    val userUiState: StateFlow<UserEntrysUiState> =
-        userRepository.getAllUserStream().map { UserEntrysUiState(it) }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-                initialValue = UserEntrysUiState()
-            )
-    companion object {
-        private const val TIMEOUT_MILLIS = 5_000L
-    }
-
 }
-data class UserEntrysUiState(val itemList: List<User> = listOf())
-
 
 data class UserUiState(
     val userDetails: UserDetails = UserDetails(),
@@ -71,4 +52,18 @@ fun UserDetails.toEntity(): User = User(
     passwordHash = AESEncyption.encrypt(passwordHash).toString(),
     email = email,
     status = status
+)
+
+fun User.toUserDetails(): UserDetails = UserDetails(
+    id = id,
+    fullName = fullName,
+    userName = userName,
+    passwordHash = passwordHash,
+    email = email,
+    status = status
+)
+
+fun User.toUserUiState(isEntryValid: Boolean = false): UserUiState = UserUiState(
+    userDetails = this.toUserDetails(),
+    isEntryValid = isEntryValid
 )

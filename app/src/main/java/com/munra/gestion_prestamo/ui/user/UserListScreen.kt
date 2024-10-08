@@ -62,7 +62,8 @@ fun UserListScreen(
         topBar = {
             GestionPrestamoTopAppBar(
                 title = stringResource(UserListDestination.titleRes),
-                canNavigateBack = false,
+                canNavigateBack = true,
+                navigateUp = navigateToBack,
                 scrollBehavior = scrollBehavior
             )
         },floatingActionButton = {
