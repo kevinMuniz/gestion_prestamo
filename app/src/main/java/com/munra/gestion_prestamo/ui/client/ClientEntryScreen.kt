@@ -1,4 +1,4 @@
-package com.munra.gestion_prestamo.ui.user
+package com.munra.gestion_prestamo.ui.client
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +23,6 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.munra.gestion_prestamo.GestionPrestamoTopAppBar
@@ -33,18 +32,17 @@ import com.munra.gestion_prestamo.ui.navigation.NavigationDestination
 import com.munra.gestion_prestamo.ui.theme.Gestion_prestamoTheme
 import kotlinx.coroutines.launch
 
-object UserEntryDestination : NavigationDestination {
-    override val route = "user_entry"
-    override val titleRes = R.string.title_user_entry
+object ClientEntryDestination: NavigationDestination {
+    override val route = "client_entry"
+    override val titleRes = R.string.title_client_entry
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserEntryScreen(
+fun ClientEntryScreen(
     navigateToBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: UserEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: ClientEntryViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     val coroutineScope = rememberCoroutineScope()
@@ -52,18 +50,18 @@ fun UserEntryScreen(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             GestionPrestamoTopAppBar (
-                title = stringResource(UserEntryDestination.titleRes),
+                title = stringResource(ClientEntryDestination.titleRes),
                 canNavigateBack = false,
                 scrollBehavior = scrollBehavior
             )
         }
-    ) { innerPadding ->
-        UserEntryBody(
-            userUiState = viewModel.userUiDetails,
+    ){ innerPadding ->
+        ClientEntryBody(
+            clientUiState = viewModel.clientUiDetails,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
                 coroutineScope.launch {
-                    viewModel.saveUser()
+                    viewModel.saveClient()
                     navigateToBack()
                 }
             },
@@ -80,9 +78,9 @@ fun UserEntryScreen(
 }
 
 @Composable
-fun UserEntryBody(
-    userUiState: UserUiState,
-    onItemValueChange: (UserDetails) -> Unit,
+fun ClientEntryBody(
+    clientUiState: ClientUiState,
+    onItemValueChange: (ClientDetails) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ){
@@ -90,14 +88,14 @@ fun UserEntryBody(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
     ) {
-        UserInputForm(
-            userDetails = userUiState.userDetails,
+        ClientInputForm(
+            clientDetails = clientUiState.clientDetails,
             onValueChange = onItemValueChange,
             modifier = Modifier.fillMaxWidth()
         )
         Button(
             onClick = onSaveClick,
-            enabled = userUiState.isEntryValid,
+            enabled = clientUiState.isEntryValid,
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -107,10 +105,10 @@ fun UserEntryBody(
 }
 
 @Composable
-fun UserInputForm(
-    userDetails: UserDetails,
+fun ClientInputForm(
+    clientDetails: ClientDetails,
     modifier: Modifier = Modifier,
-    onValueChange: (UserDetails) -> Unit = {},
+    onValueChange: (ClientDetails) -> Unit = {},
     enabled: Boolean = true
 ){
     Column(
@@ -118,8 +116,8 @@ fun UserInputForm(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
-            value = userDetails.fullName,
-            onValueChange = { onValueChange(userDetails.copy(fullName = it)) },
+            value = clientDetails.fullName,
+            onValueChange = { onValueChange(clientDetails.copy(fullName = it)) },
             label = { Text(stringResource(R.string.lbl_fullname)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -131,9 +129,9 @@ fun UserInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = userDetails.userName,
-            onValueChange = { onValueChange(userDetails.copy(userName = it)) },
-            label = { Text(stringResource(R.string.lbl_username)) },
+            value = clientDetails.document,
+            onValueChange = { onValueChange(clientDetails.copy(document = it)) },
+            label = { Text(stringResource(R.string.lbl_ci)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -144,10 +142,9 @@ fun UserInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = userDetails.passwordHash,
-            onValueChange = { onValueChange(userDetails.copy(passwordHash = it)) },
-            label = { Text(stringResource(R.string.lbl_password)) },
-            visualTransformation = PasswordVisualTransformation(),
+            value = clientDetails.address,
+            onValueChange = { onValueChange(clientDetails.copy(address = it)) },
+            label = { Text(stringResource(R.string.lbl_addrees)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -158,9 +155,9 @@ fun UserInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = userDetails.email,
-            onValueChange = { onValueChange(userDetails.copy(email = it)) },
-            label = { Text(stringResource(R.string.lbl_email)) },
+            value = clientDetails.phone,
+            onValueChange = { onValueChange(clientDetails.copy(phone = it)) },
+            label = { Text(stringResource(R.string.lbl_phone)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -184,10 +181,10 @@ fun UserInputForm(
 @Composable
 private fun ItemEntryScreenPreview() {
     Gestion_prestamoTheme {
-        UserEntryBody(userUiState = UserUiState(
-            UserDetails(
-                fullName = "Kevin Muniz", userName = "kmuniz",
-                passwordHash = "Cmm11337", email = "kmuniz@gmail.com"
+        ClientEntryBody(clientUiState = ClientUiState(
+            ClientDetails(
+                fullName = "Kevin Muniz", document = "1314853209",
+                address = "Calle 32, Av P2", phone = "097956004"
             )
         ), onItemValueChange = {}, onSaveClick = {})
     }

@@ -1,4 +1,4 @@
-package com.munra.gestion_prestamo.ui.user
+package com.munra.gestion_prestamo.ui.client
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,40 +35,39 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.munra.gestion_prestamo.GestionPrestamoTopAppBar
 import com.munra.gestion_prestamo.R
-import com.munra.gestion_prestamo.data.user.User
+import com.munra.gestion_prestamo.data.client.Client
 import com.munra.gestion_prestamo.ui.AppViewModelProvider
 import com.munra.gestion_prestamo.ui.navigation.NavigationDestination
 import com.munra.gestion_prestamo.ui.theme.Gestion_prestamoTheme
 
-object UserListDestination : NavigationDestination {
-    override val route = "user_list"
-    override val titleRes = R.string.title_user_list
+object ClientListDestination : NavigationDestination {
+    override val route = "client_list"
+    override val titleRes = R.string.title_client_list
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserListScreen(
+fun ClientListScreen(
     navigateToBack: () -> Unit,
-    navigateToUserDetails: (Int) -> Unit,
-    navigateToUserEntry: () -> Unit,
+    navigateToClientDetails: (Int) -> Unit,
+    navigateToClientEntry: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: UserListViewModel =  viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: ClientListViewModel =  viewModel(factory = AppViewModelProvider.Factory)
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val userUiState by viewModel.userListUiState.collectAsState()
+    val clientUiState by viewModel.clientListUiState.collectAsState()
 
     Scaffold(
         topBar = {
             GestionPrestamoTopAppBar(
-                title = stringResource(UserListDestination.titleRes),
+                title = stringResource(ClientListDestination.titleRes),
                 canNavigateBack = true,
                 navigateUp = navigateToBack,
                 scrollBehavior = scrollBehavior
             )
         },floatingActionButton = {
             FloatingActionButton(
-                onClick = navigateToUserEntry,
+                onClick = navigateToClientEntry,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
@@ -79,9 +78,9 @@ fun UserListScreen(
             }
         },
     ) { innerPadding ->
-        UserBody(
-            userList = userUiState.userList,
-            onUserClick = navigateToUserDetails,
+        ClientBody(
+            clientList = clientUiState.clientList,
+            onClientClick = navigateToClientDetails,
             modifier = modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -90,9 +89,9 @@ fun UserListScreen(
 }
 
 @Composable
-private fun UserBody(
-    userList: List<User>,
-    onUserClick: (Int) -> Unit,
+private fun ClientBody(
+    clientList: List<Client>,
+    onClientClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ){
@@ -100,17 +99,17 @@ private fun UserBody(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        if (userList.isEmpty()) {
+        if (clientList.isEmpty()) {
             Text(
-                text = stringResource(R.string.no_users),
+                text = stringResource(R.string.no_client),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.padding(contentPadding),
             )
         } else {
-            UserList(
-                userList = userList,
-                onUserClick = { onUserClick(it.id) },
+            ClientList(
+                clientList = clientList,
+                onClientClick = { onClientClick(it.id) },
                 contentPadding = contentPadding,
                 modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
             )
@@ -119,9 +118,9 @@ private fun UserBody(
 }
 
 @Composable
-private fun UserList(
-    userList: List<User>,
-    onUserClick: (User) -> Unit,
+private fun ClientList(
+    clientList: List<Client>,
+    onClientClick: (Client) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
@@ -129,20 +128,20 @@ private fun UserList(
         modifier = modifier,
         contentPadding = contentPadding
     ) {
-        items(items = userList, key = { it.id }) { user ->
-            UserItem(
-                user = user,
+        items(items = clientList, key = { it.id }) { client ->
+            ClientItem(
+                client = client,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { onUserClick(user) }
+                    .clickable { onClientClick(client) }
             )
         }
     }
 }
 
 @Composable
-private fun UserItem(
-    user: User, modifier: Modifier = Modifier
+private fun ClientItem(
+    client: Client, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier,
@@ -156,12 +155,12 @@ private fun UserItem(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = user.fullName,
+                    text = client.fullName,
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    text = user.userName,
+                    text = client.document,
                     style = MaterialTheme.typography.titleMedium
                 )
             }
@@ -173,9 +172,9 @@ private fun UserItem(
 @Composable
 fun HomeBodyPreview() {
     Gestion_prestamoTheme {
-        UserBody(listOf(
-            User(1, "Kevin Muniz", "kmuniz",
-                "3d2acdb5af1787da49e26f6b42c653e9", "kmuniz@gmail.com", true)
-        ), onUserClick = {})
+        ClientBody(listOf(
+            Client(1, "Kevin Muniz", "1314853209",
+                "Marbella", "097956004")
+        ), onClientClick = {})
     }
 }

@@ -2,9 +2,10 @@
     <string name="app_name">gestion_prestamo</string>
     <string name="back_button">Regresar</string>
     <string name="no_users">No existen usuarios. Agrege un nuevo Usuario.</string>
+    <string name="no_client">No existen clientes. Agrege un nuevo Cliente.</string>
     <string name="required_fields">*campos requeridos</string>
     <string name="attention">Atención</string>
-    <string name="delete_question">¿Estás segura/o de que quieres eliminar??</string>
+    <string name="delete_question">¿Estás segura/o de que quieres eliminar?</string>
     <string name="no">No</string>
     <string name="yes">Si</string>
 
@@ -16,10 +17,16 @@
     <string name="btn_delete">Eliminar</string>
 
     <string name="title_home">Home</string>
+
     <string name="title_user_list">Lista de Usuario</string>
     <string name="title_user_entry">Ingreso de Usuario</string>
     <string name="title_user_details">Detalle de Usuario</string>
     <string name="title_user_edit">Editar Usuario</string>
+
+    <string name="title_client_list">Lista de Clientes</string>
+    <string name="title_client_entry">Ingreso de Cliente</string>
+    <string name="title_client_details">Detalle de Cliente</string>
+    <string name="title_client_edit">Editar Cliente</string>
 
     <string name="lbl_agregar">Agregar</string>
 
@@ -27,5 +34,8 @@
     <string name="lbl_username">Nombre de Usuario</string>
     <string name="lbl_password">Contraseña</string>
     <string name="lbl_email">Correo</string>
+    <string name="lbl_ci">Cédula</string>
+    <string name="lbl_addrees">Dirección</string>
+    <string name="lbl_phone">Teléfono</string>
 
 </resources>

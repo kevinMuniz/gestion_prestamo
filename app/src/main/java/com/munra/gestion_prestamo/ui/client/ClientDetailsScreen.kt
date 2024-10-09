@@ -1,4 +1,4 @@
-package com.munra.gestion_prestamo.ui.user
+package com.munra.gestion_prestamo.ui.client
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,7 +18,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -34,26 +32,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.munra.gestion_prestamo.GestionPrestamoTopAppBar
 import com.munra.gestion_prestamo.R
-import com.munra.gestion_prestamo.data.user.User
+import com.munra.gestion_prestamo.data.client.Client
 import com.munra.gestion_prestamo.ui.AppViewModelProvider
 import com.munra.gestion_prestamo.ui.navigation.NavigationDestination
+import com.munra.gestion_prestamo.ui.user.DeleteConfirmationDialog
 import kotlinx.coroutines.launch
 
-object UserDetailsDestination : NavigationDestination {
-    override val route = "user_details"
-    override val titleRes = R.string.title_user_details
-    const val userIdArg = "userId"
-    val routeWithArgs = "$route/{$userIdArg}"
+object ClientDetailsDestination : NavigationDestination {
+    override val route = "client_details"
+    override val titleRes = R.string.title_client_details
+    const val clientIdArg = "clientId"
+    val routeWithArgs = "$route/{${clientIdArg}}"
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserDetailsScreen(
-    navigateToEditUser: (Int) -> Unit,
+fun ClientDetailsScreen(
+    navigateToEditClient: (Int) -> Unit,
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: UserDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: ClientDetailsViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ){
     val uiState = viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
@@ -61,28 +59,28 @@ fun UserDetailsScreen(
     Scaffold(
         topBar = {
             GestionPrestamoTopAppBar(
-                title = stringResource(UserDetailsDestination.titleRes),
+                title = stringResource(ClientDetailsDestination.titleRes),
                 canNavigateBack = true,
                 navigateUp = navigateBack
             )
         }, floatingActionButton = {
             FloatingActionButton(
-                onClick = { navigateToEditUser(uiState.value.userDetails.id)  },
+                onClick = { navigateToEditClient(uiState.value.clientDetails.id)  },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = stringResource(R.string.title_user_edit),
+                    contentDescription = stringResource(R.string.title_client_edit),
                 )
             }
         }, modifier = modifier
     ) { innerPadding ->
         UserDetailsBody(
-            itemDetailsUiState = uiState.value,
+            clientDetailsUiState = uiState.value,
             onDelete = {
                 coroutineScope.launch {
-                    viewModel.deleteItem()
+                    viewModel.deleteClient()
                     navigateBack()
                 }
             },
@@ -93,7 +91,7 @@ fun UserDetailsScreen(
 
 @Composable
 private fun UserDetailsBody(
-    itemDetailsUiState: UserDetailsUiState,
+    clientDetailsUiState: ClientDetailsUiState,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -106,8 +104,8 @@ private fun UserDetailsBody(
             verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
         ) {
             var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
-            ItemDetails(
-                user = itemDetailsUiState.userDetails.toEntity(), modifier = Modifier.fillMaxWidth()
+            ClientDetails(
+                client = clientDetailsUiState.clientDetails.toEntity(), modifier = Modifier.fillMaxWidth()
             )
             OutlinedButton(
                 onClick = { deleteConfirmationRequired = true },
@@ -131,8 +129,8 @@ private fun UserDetailsBody(
 }
 
 @Composable
-fun ItemDetails(
-    user: User, modifier: Modifier = Modifier
+fun ClientDetails(
+    client: Client, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier,
@@ -149,23 +147,23 @@ fun ItemDetails(
                 dimensionResource(id = R.dimen.padding_medium)
             )
         ) {
-            UserDetailsRow(
+            ClientDetailsRow(
                 labelResID = R.string.lbl_fullname,
-                itemDetail = user.fullName,
+                clientDetail = client.fullName,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
-            UserDetailsRow(
-                labelResID = R.string.lbl_username,
-                itemDetail = user.userName,
+            ClientDetailsRow(
+                labelResID = R.string.lbl_ci,
+                clientDetail = client.document,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
             )
-            UserDetailsRow(
-                labelResID = R.string.lbl_email,
-                itemDetail = user.email,
+            ClientDetailsRow(
+                labelResID = R.string.lbl_phone,
+                clientDetail = client.phone,
                 modifier = Modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.padding_medium)
                 )
@@ -175,34 +173,12 @@ fun ItemDetails(
 }
 
 @Composable
-private fun UserDetailsRow(
-    @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
+private fun ClientDetailsRow(
+    @StringRes labelResID: Int, clientDetail: String, modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier) {
         Text(stringResource(labelResID))
         Spacer(modifier = Modifier.weight(1f))
-        Text(text = itemDetail, fontWeight = FontWeight.Bold)
+        Text(text = clientDetail, fontWeight = FontWeight.Bold)
     }
-}
-
-@Composable
-fun DeleteConfirmationDialog(
-    onDeleteConfirm: () -> Unit,
-    onDeleteCancel: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    AlertDialog(onDismissRequest = { /* Do nothing */ },
-        title = { Text(stringResource(R.string.attention)) },
-        text = { Text(stringResource(R.string.delete_question)) },
-        modifier = modifier,
-        dismissButton = {
-            TextButton(onClick = onDeleteCancel) {
-                Text(stringResource(R.string.no))
-            }
-        },
-        confirmButton = {
-            TextButton(onClick = onDeleteConfirm) {
-                Text(stringResource(R.string.yes))
-            }
-        })
 }
