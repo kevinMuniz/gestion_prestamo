@@ -30,12 +30,12 @@
 
     <string name="lbl_agregar">Agregar</string>
 
-    <string name="lbl_fullname">Nombre Completo</string>
-    <string name="lbl_username">Nombre de Usuario</string>
-    <string name="lbl_password">Contraseña</string>
-    <string name="lbl_email">Correo</string>
-    <string name="lbl_ci">Cédula</string>
-    <string name="lbl_addrees">Dirección</string>
-    <string name="lbl_phone">Teléfono</string>
+    <string name="lbl_fullname">Nombre Completo*</string>
+    <string name="lbl_username">Nombre de Usuario*</string>
+    <string name="lbl_password">Contraseña*</string>
+    <string name="lbl_email">Correo*</string>
+    <string name="lbl_ci">Cédula*</string>
+    <string name="lbl_addrees">Dirección*</string>
+    <string name="lbl_phone">Teléfono*</string>
 
 </resources>
