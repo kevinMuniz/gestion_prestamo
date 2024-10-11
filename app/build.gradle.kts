@@ -53,6 +53,7 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+    implementation (libs.androidx.core.splashscreen)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -71,9 +72,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation (libs.androidx.material.icons.extended)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
-    implementation (libs.androidx.material.icons.extended)
 
 }
