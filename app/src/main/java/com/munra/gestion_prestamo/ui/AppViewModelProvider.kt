@@ -10,6 +10,7 @@ import com.munra.gestion_prestamo.ui.client.ClientDetailsViewModel
 import com.munra.gestion_prestamo.ui.client.ClientEditViewModel
 import com.munra.gestion_prestamo.ui.client.ClientEntryViewModel
 import com.munra.gestion_prestamo.ui.client.ClientListViewModel
+import com.munra.gestion_prestamo.ui.login.LoginViewModel
 import com.munra.gestion_prestamo.ui.user.UserDetailsViewModel
 import com.munra.gestion_prestamo.ui.user.UserEditViewModel
 import com.munra.gestion_prestamo.ui.user.UserEntryViewModel
@@ -17,6 +18,9 @@ import com.munra.gestion_prestamo.ui.user.UserListViewModel
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
+        initializer {
+            LoginViewModel(gestionPrestamoApplication().container.userRepository)
+        }
         //region User Initializar
         initializer {
             UserListViewModel(gestionPrestamoApplication().container.userRepository)

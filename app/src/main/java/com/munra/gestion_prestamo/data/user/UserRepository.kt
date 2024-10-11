@@ -10,5 +10,6 @@ interface UserRepository {
     fun getUserStream(id: Int): Flow<User?>
     suspend fun deleteUser(user: User)
     suspend fun updateUser(user: User)
+    suspend fun loginUser(userName: String, password: String): Flow<User?>
 
 }

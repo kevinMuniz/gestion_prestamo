@@ -26,4 +26,7 @@ interface UserDao {
     @Query("SELECT * FROM USER WHERE id =:id")
     fun getUser(id: Int):Flow<User>
 
+    @Query("SELECT * FROM USER WHERE userName =:userName AND passwordHash =:password")
+    fun loginUser(userName: String, password: String):Flow<User>
+
 }

@@ -8,6 +8,12 @@
     <string name="delete_question">¿Estás segura/o de que quieres eliminar?</string>
     <string name="no">No</string>
     <string name="yes">Si</string>
+    <string name="user">Usuario</string>
+    <string name="passwd">Contraseña</string>
+    <string name="remenber">Recordarme</string>
+    <string name="wornf_credential">Credenciales Incorrectar</string>
+    <string name="enter_user">Ingresa tu Usuario</string>
+    <string name="enter_passwd">Ingresa tu Contraseña</string>
 
     <string name="btn_user">Menu Usuario</string>
     <string name="btn_client">Menu Cliente</string>
@@ -15,6 +21,7 @@
     <string name="btn_transaction">Menu Transaccion</string>
     <string name="btn_save_action">Guardar</string>
     <string name="btn_delete">Eliminar</string>
+    <string name="btn_login">Iniciar Sesion</string>
 
     <string name="title_home">Home</string>
 

@@ -17,6 +17,8 @@ import com.munra.gestion_prestamo.ui.client.ClientListDestination
 import com.munra.gestion_prestamo.ui.client.ClientListScreen
 import com.munra.gestion_prestamo.ui.home.HomeDestination
 import com.munra.gestion_prestamo.ui.home.HomeScreen
+import com.munra.gestion_prestamo.ui.login.LoginDestination
+import com.munra.gestion_prestamo.ui.login.LoginScreen
 import com.munra.gestion_prestamo.ui.user.UserDetailsDestination
 import com.munra.gestion_prestamo.ui.user.UserDetailsScreen
 import com.munra.gestion_prestamo.ui.user.UserEditDestination
@@ -34,9 +36,14 @@ fun GestionPrestamoNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = HomeDestination.route,
+        startDestination = LoginDestination.route,
         modifier = modifier
     ){
+        composable(route = LoginDestination.route) {
+            LoginScreen(
+                navigateToHome = { navController.navigate(HomeDestination.route) },
+            )
+        }
         composable(route = HomeDestination.route) {
             HomeScreen(
                 navigateToUser = { navController.navigate(UserListDestination.route) },

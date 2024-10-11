@@ -9,6 +9,6 @@ class UserOfflineRepository (private val userDao: UserDao) : UserRepository {
     override fun getUserStream(id: Int): Flow<User?> = userDao.getUser(id)
     override suspend fun deleteUser(user: User) = userDao.delete(user)
     override suspend fun updateUser(user: User) = userDao.update(user)
+    override suspend fun loginUser(userName: String, password: String): Flow<User?> = userDao.loginUser(userName, password)
     override suspend fun insertUser(user: User) = userDao.insertUser(user)
-
 }
