@@ -121,15 +121,6 @@ fun LoginScreen(
     }
 }
 
-
-private fun checkCredentials(creds: Credentials): Boolean {
-    if (creds.isNotEmpty()) {
-        return true
-    } else {
-        return false
-    }
-}
-
 @Composable
 fun LabeledCheckbox(
     label: String,
