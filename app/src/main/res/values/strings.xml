@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">gestion_prestamo</string>
+    <string name="app_name">Gestion de Prestamo</string>
     <string name="back_button">Regresar</string>
     <string name="no_users">No existen usuarios. Agrege un nuevo Usuario.</string>
     <string name="no_client">No existen clientes. Agrege un nuevo Cliente.</string>
@@ -27,6 +27,7 @@
 
     <string name="title_user_list">Lista de Usuario</string>
     <string name="title_user_entry">Ingreso de Usuario</string>
+    <string name="title_user_registry">Registrar Usuario</string>
     <string name="title_user_details">Detalle de Usuario</string>
     <string name="title_user_edit">Editar Usuario</string>
 

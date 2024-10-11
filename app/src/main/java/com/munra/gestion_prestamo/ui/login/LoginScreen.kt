@@ -62,6 +62,7 @@ object LoginDestination : NavigationDestination {
 @Composable
 fun LoginScreen(
     navigateToHome: () -> Unit,
+    navigateToUserEntry: () -> Unit,
     viewModel: LoginViewModel =  viewModel(factory = AppViewModelProvider.Factory)
 ) {
     var credentials by remember { mutableStateOf(Credentials()) }
@@ -116,6 +117,14 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(stringResource(id = R.string.btn_login))
+            }
+            Button(
+                onClick = {navigateToUserEntry()},
+                enabled = true,
+                shape = RoundedCornerShape(5.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(id = R.string.title_user_registry))
             }
         }
     }

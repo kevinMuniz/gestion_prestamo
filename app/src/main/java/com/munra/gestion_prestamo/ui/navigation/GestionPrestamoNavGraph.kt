@@ -42,6 +42,7 @@ fun GestionPrestamoNavHost(
         composable(route = LoginDestination.route) {
             LoginScreen(
                 navigateToHome = { navController.navigate(HomeDestination.route) },
+                navigateToUserEntry = { navController.navigate(UserEntryDestination.route) },
             )
         }
         composable(route = HomeDestination.route) {
