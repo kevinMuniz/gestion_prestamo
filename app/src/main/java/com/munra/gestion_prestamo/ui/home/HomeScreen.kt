@@ -21,6 +21,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import com.munra.gestion_prestamo.GestionPrestamoTopAppBar
 import com.munra.gestion_prestamo.R
+import com.munra.gestion_prestamo.ui.loan.LoanListDestination
 import com.munra.gestion_prestamo.ui.navigation.NavigationDestination
 
 object HomeDestination : NavigationDestination {
@@ -34,6 +35,7 @@ object HomeDestination : NavigationDestination {
 fun HomeScreen(
     navigateToUser: () -> Unit,
     navigateToClient: () -> Unit,
+    navigateToLoan: () -> Unit,
     modifier: Modifier = Modifier
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -51,6 +53,7 @@ fun HomeScreen(
         HomeBody(
             navigateToUser = navigateToUser,
             navigateToClient = navigateToClient,
+            navigateToLoan = navigateToLoan,
             modifier = Modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
@@ -67,6 +70,7 @@ fun HomeScreen(
 fun HomeBody(
     navigateToUser: () -> Unit,
     navigateToClient: () -> Unit,
+    navigateToLoan: () -> Unit,
     modifier: Modifier = Modifier
 ){
     Column(
@@ -84,6 +88,12 @@ fun HomeBody(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = stringResource(R.string.btn_client))
+        }
+        Button(
+            onClick = navigateToLoan,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = stringResource(R.string.btn_prestamo))
         }
     }
 }
