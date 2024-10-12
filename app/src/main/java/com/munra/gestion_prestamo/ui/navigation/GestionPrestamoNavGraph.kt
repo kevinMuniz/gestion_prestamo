@@ -27,6 +27,8 @@ import com.munra.gestion_prestamo.ui.user.UserEntryDestination
 import com.munra.gestion_prestamo.ui.user.UserEntryScreen
 import com.munra.gestion_prestamo.ui.user.UserListDestination
 import com.munra.gestion_prestamo.ui.user.UserListScreen
+import com.munra.gestion_prestamo.ui.loan.LoanListDestination
+import com.munra.gestion_prestamo.ui.loan.LoanListScreen
 
 @Composable
 fun GestionPrestamoNavHost(
@@ -48,7 +50,9 @@ fun GestionPrestamoNavHost(
         composable(route = HomeDestination.route) {
             HomeScreen(
                 navigateToUser = { navController.navigate(UserListDestination.route) },
-                navigateToClient = { navController.navigate(ClientListDestination.route) }
+                navigateToClient = { navController.navigate(ClientListDestination.route) },
+                navigateToLoan = { navController.navigate(LoanListDestination.route) }
+
             )
         }
 
@@ -130,5 +134,30 @@ fun GestionPrestamoNavHost(
         }
         //endregion
 
+            composable(route = LoanListDestination.route) {
+                        LoanListScreen(
+                            navigateToBack = {navController.navigate(HomeDestination.route)},
+                            navigateToClientDetails = {
+                                navController.navigate("${ClientDetailsDestination.route}/${it}")
+                            },
+                            navigateToClientEntry = { navController.navigate(ClientEntryDestination.route) },
+                        )
+                    }
+                    composable(route = ClientEntryDestination.route) {
+                        ClientEntryScreen(
+                            navigateToBack = {navController.navigate(ClientListDestination.route)}
+                        )
+                    }
+                    composable(
+                        route = ClientDetailsDestination.routeWithArgs,
+                        arguments = listOf(navArgument(ClientDetailsDestination.clientIdArg) {
+                            type = NavType.IntType
+                        })
+                    ) {
+                        ClientDetailsScreen(
+                            navigateToEditClient = { navController.navigate("${ClientEditDestination.route}/$it") },
+                            navigateBack = { navController.navigateUp() }
+                        )
+                    }
     }
 }
