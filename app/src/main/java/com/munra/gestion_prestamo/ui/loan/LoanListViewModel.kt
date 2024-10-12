@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.stateIn
 class LoanListViewModel(prestamoRepository: PrestamoRepository) : ViewModel() {
 
     val loanListUiState: StateFlow<LoanListUiState> =
-        prestamoRepository.getAllPrestamo().map { LoanListUiState(it) }
+        prestamoRepository.getAllPrestamoStream().map { LoanListUiState(it) }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
