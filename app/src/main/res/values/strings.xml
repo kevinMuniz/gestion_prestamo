@@ -46,4 +46,7 @@
     <string name="lbl_addrees">Dirección*</string>
     <string name="lbl_phone">Teléfono*</string>
 
+    <string name="title_loan_list">Lista de Prestamos</string>
+    <string name="no_prestamo">No existen prestamos. Agrege un nuevo Prestamo.</string>
+
 </resources>
