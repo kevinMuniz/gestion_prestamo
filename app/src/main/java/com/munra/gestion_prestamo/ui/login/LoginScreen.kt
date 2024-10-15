@@ -100,6 +100,7 @@ fun LoginScreen(
             Button(
                 onClick = {
                     coroutineScope.launch {
+                        navigateToHome()
                         if (viewModel.loginUser(credentials.login, AESEncyption.encrypt(credentials.pwd).toString())) {
                             navigateToHome()
                         } else {

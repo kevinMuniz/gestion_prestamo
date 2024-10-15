@@ -40,6 +40,7 @@ import com.munra.gestion_prestamo.data.prestamo.Prestamo
 import com.munra.gestion_prestamo.data.prestamo.TipoPlazo
 import com.munra.gestion_prestamo.ui.AppViewModelProvider
 import com.munra.gestion_prestamo.ui.loan.LoanListViewModel
+import com.munra.gestion_prestamo.ui.login.LoginViewModel
 import com.munra.gestion_prestamo.ui.navigation.NavigationDestination
 import com.munra.gestion_prestamo.ui.theme.Gestion_prestamoTheme
 
@@ -52,13 +53,14 @@ object LoanListDestination : NavigationDestination {
 @Composable
 fun LoanListScreen(
     navigateToBack: () -> Unit,
-    navigateToClientDetails: (Int) -> Unit,
-    navigateToClientEntry: () -> Unit,
+    navigateToLoanDetails: (Int) -> Unit,
+    navigateToLoanEntry: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoanListViewModel =  viewModel(factory = AppViewModelProvider.Factory)
+
 ){
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val clientUiState by viewModel.loanListUiState.collectAsState()
+    val loanListUiState by viewModel.loanListUiState.collectAsState()
 
     Scaffold(
         topBar = {
@@ -70,7 +72,7 @@ fun LoanListScreen(
             )
         },floatingActionButton = {
             FloatingActionButton(
-                onClick = navigateToClientEntry,
+                onClick = navigateToLoanEntry,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
             ) {
@@ -82,8 +84,8 @@ fun LoanListScreen(
         },
     ) { innerPadding ->
         LoanBody(
-            clientList = clientUiState.loantList,
-            onClientClick = navigateToClientDetails,
+            loanList = loanListUiState.loantList,
+            onClientClick = navigateToLoanDetails,
             modifier = modifier
                 .padding(innerPadding)
                 .fillMaxSize()
@@ -93,7 +95,7 @@ fun LoanListScreen(
 
 @Composable
 private fun LoanBody(
-    clientList: List<Prestamo>,
+    loanList: List<Prestamo>,
     onClientClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -102,7 +104,7 @@ private fun LoanBody(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier,
     ) {
-        if (clientList.isEmpty()) {
+        if (loanList.isEmpty()) {
             Text(
                 text = stringResource(R.string.no_prestamo),
                 textAlign = TextAlign.Center,
@@ -110,20 +112,20 @@ private fun LoanBody(
                 modifier = Modifier.padding(contentPadding),
             )
         } else {
-            //ClientList(
-              //  clientList = clientList,
-                //onClientClick = { onClientClick(it.id) },
-                //contentPadding = contentPadding,
-               // modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
-            //)
+            LoanList(
+                loanList = loanList,
+                onClientClick = { onClientClick(it.id) },
+                contentPadding = contentPadding,
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
+            )
         }
     }
 }
 
 @Composable
-private fun ClientList(
-    clientList: List<Client>,
-    onClientClick: (Client) -> Unit,
+private fun LoanList(
+    loanList: List<Prestamo>,
+    onClientClick: (Prestamo) -> Unit,
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
@@ -131,20 +133,20 @@ private fun ClientList(
         modifier = modifier,
         contentPadding = contentPadding
     ) {
-        items(items = clientList, key = { it.id }) { client ->
-            ClientItem(
-                client = client,
+        items(items = loanList, key = { it.id }) { loan ->
+            LoantItem(
+                loan = loan,
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen.padding_small))
-                    .clickable { onClientClick(client) }
+                    .clickable { onClientClick(loan) }
             )
         }
     }
 }
 
 @Composable
-private fun ClientItem(
-    client: Client, modifier: Modifier = Modifier
+private fun LoantItem(
+    loan: Prestamo, modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier,
@@ -158,12 +160,12 @@ private fun ClientItem(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = client.fullName,
+                    text = loan.id.toString(),
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(Modifier.weight(1f))
                 Text(
-                    text = client.document,
+                    text = loan.valor.toString(),
                     style = MaterialTheme.typography.titleMedium
                 )
             }

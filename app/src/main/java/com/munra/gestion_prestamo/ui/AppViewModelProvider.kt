@@ -10,6 +10,9 @@ import com.munra.gestion_prestamo.ui.client.ClientDetailsViewModel
 import com.munra.gestion_prestamo.ui.client.ClientEditViewModel
 import com.munra.gestion_prestamo.ui.client.ClientEntryViewModel
 import com.munra.gestion_prestamo.ui.client.ClientListViewModel
+import com.munra.gestion_prestamo.ui.loan.LoanDetailsViewModel
+import com.munra.gestion_prestamo.ui.loan.LoanEntryViewModel
+import com.munra.gestion_prestamo.ui.loan.LoanListViewModel
 import com.munra.gestion_prestamo.ui.login.LoginViewModel
 import com.munra.gestion_prestamo.ui.user.UserDetailsViewModel
 import com.munra.gestion_prestamo.ui.user.UserEditViewModel
@@ -60,6 +63,26 @@ object AppViewModelProvider {
             )
         }
         //endregion
+
+        //region Client Initializar
+
+        initializer {
+            LoanListViewModel(gestionPrestamoApplication().container.prestamoRepository)
+        }
+
+        initializer {
+            LoanEntryViewModel(gestionPrestamoApplication().container.prestamoRepository,gestionPrestamoApplication().container.clientRepository)
+        }
+
+        initializer {
+            LoanDetailsViewModel(
+                this.createSavedStateHandle(),
+                gestionPrestamoApplication().container.prestamoRepository)
+        }
+
+        //endregion
+
+
     }
 }
 

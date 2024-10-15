@@ -17,6 +17,10 @@ import com.munra.gestion_prestamo.ui.client.ClientListDestination
 import com.munra.gestion_prestamo.ui.client.ClientListScreen
 import com.munra.gestion_prestamo.ui.home.HomeDestination
 import com.munra.gestion_prestamo.ui.home.HomeScreen
+import com.munra.gestion_prestamo.ui.loan.LoanDetailsDestination
+import com.munra.gestion_prestamo.ui.loan.LoanDetailsScreen
+import com.munra.gestion_prestamo.ui.loan.LoanEntryDestination
+import com.munra.gestion_prestamo.ui.loan.LoanEntryScreen
 import com.munra.gestion_prestamo.ui.login.LoginDestination
 import com.munra.gestion_prestamo.ui.login.LoginScreen
 import com.munra.gestion_prestamo.ui.user.UserDetailsDestination
@@ -134,30 +138,35 @@ fun GestionPrestamoNavHost(
         }
         //endregion
 
-            composable(route = LoanListDestination.route) {
-                        LoanListScreen(
-                            navigateToBack = {navController.navigate(HomeDestination.route)},
-                            navigateToClientDetails = {
-                                navController.navigate("${ClientDetailsDestination.route}/${it}")
-                            },
-                            navigateToClientEntry = { navController.navigate(ClientEntryDestination.route) },
-                        )
-                    }
-                    composable(route = ClientEntryDestination.route) {
-                        ClientEntryScreen(
-                            navigateToBack = {navController.navigate(ClientListDestination.route)}
-                        )
-                    }
-                    composable(
-                        route = ClientDetailsDestination.routeWithArgs,
-                        arguments = listOf(navArgument(ClientDetailsDestination.clientIdArg) {
-                            type = NavType.IntType
-                        })
-                    ) {
-                        ClientDetailsScreen(
-                            navigateToEditClient = { navController.navigate("${ClientEditDestination.route}/$it") },
-                            navigateBack = { navController.navigateUp() }
-                        )
-                    }
+
+        //region Loan Navigation
+
+        composable(route = LoanListDestination.route) {
+            LoanListScreen(
+                navigateToBack = {navController.navigate(HomeDestination.route)},
+                navigateToLoanDetails = {
+                    navController.navigate("${LoanDetailsDestination.route}/${it}")
+                },
+                navigateToLoanEntry = { navController.navigate(LoanEntryDestination.route) },
+
+            )
+        }
+        composable(route = LoanEntryDestination.route) {
+            LoanEntryScreen(
+                navigateToBack = {navController.navigate(LoanListDestination.route)}
+            )
+        }
+        composable(
+            route = LoanDetailsDestination.routeWithArgs,
+            arguments = listOf(navArgument(LoanDetailsDestination.loanIdArg) {
+                type = NavType.IntType
+            })
+        ) {
+            LoanDetailsScreen(
+                navigateToEditClient = { navController.navigate("${ClientEditDestination.route}/$it") },
+                navigateBack = { navController.navigateUp() }
+            )
+        }
+
     }
 }
